@@ -1,0 +1,3 @@
+C:/Users/Ezr0/Desktop/zadanie1/build/CMakeFiles/zadanie1.dir
+C:/Users/Ezr0/Desktop/zadanie1/build/CMakeFiles/edit_cache.dir
+C:/Users/Ezr0/Desktop/zadanie1/build/CMakeFiles/rebuild_cache.dir
