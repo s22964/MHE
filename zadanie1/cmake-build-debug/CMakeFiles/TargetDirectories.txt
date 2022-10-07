@@ -1,3 +1,0 @@
-/home/maciek/Desktop/zadanie1/cmake-build-debug/CMakeFiles/zadanie1.dir
-/home/maciek/Desktop/zadanie1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/maciek/Desktop/zadanie1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
