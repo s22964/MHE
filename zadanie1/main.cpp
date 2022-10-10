@@ -85,11 +85,16 @@ void display(int w,int h, std::string txt){ //tworzy i wyświetla tekst w ramce
 
 }
 
-int main() {
+int main(int argc, char ** argv) {
+    json data;
 
-    std::ifstream f("../config.json");
-    json data = json::parse(f);
+    if (argc==2){
+        std::string path=argv[1];
+        std::ifstream f("../"+path);
+        data=json::parse(f);
+    }else{}
     display(data["w"],data["h"],data["text"]);
+
 
 
     return 0;
