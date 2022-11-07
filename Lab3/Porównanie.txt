@@ -1,0 +1,8 @@
+Porównanie zostało wykonane dla 9 identycznych liczb (ze względu na sprzęt nie mogłem dla 12, jednak już widać różnicę).
+
+Średni czas dla pythona: 0.824892175197601 
+Średni czas dla C++: 0.632319050000000
+
+Wnioski:
+Python znany jest z bycia wolniejszym językiem od c++. Szczególnie widać było to przy 12 liczbach gdzie c++ poradził sobie w kilka sekund.
+Może jednak być to spowodowane różnicami w kodzie bądź też użyciu nieoptymalnych dla pythona funkcji.
