@@ -1,0 +1,10 @@
+Zbior: {80,73,22,63,81,54,18,48,51}
+iteracje: 100000
+Tabu:
+Lista=4274480 mikrosekund |7 liczb
+Vector=6594197 mikrosekund |7 liczb
+Map=66250570 mikrosekund |8 liczb
+Unordered_Map=42147294 mikrosekund|8 liczb
+
+Wnioski:
+Bez przyjmowania górnej granicy, mapy byłyby najszybsze. Jednak brak funkcji pop_front oraz w przypadku map funkcji rotate mocno spowalnia działanie programu.
