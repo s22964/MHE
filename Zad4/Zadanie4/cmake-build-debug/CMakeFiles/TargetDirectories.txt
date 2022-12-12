@@ -1,3 +1,3 @@
-C:/Users/Ezr0/CLionProjects/Zadanie4/cmake-build-debug/CMakeFiles/Zadanie4.dir
-C:/Users/Ezr0/CLionProjects/Zadanie4/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Ezr0/CLionProjects/Zadanie4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Ezr0/Desktop/z4/MHE/Zad4/Zadanie4/cmake-build-debug/CMakeFiles/Zadanie4.dir
+C:/Users/Ezr0/Desktop/z4/MHE/Zad4/Zadanie4/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Ezr0/Desktop/z4/MHE/Zad4/Zadanie4/cmake-build-debug/CMakeFiles/rebuild_cache.dir

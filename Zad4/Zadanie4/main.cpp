@@ -103,31 +103,76 @@ std::pair<std::vector<std::vector<int>>, int> random_hill_climbing(int m, int T,
     return make_pair(ans, Q);
 }
 
+std::vector<std::vector<int>> find_best_neighbours(std::vector<std::vector<int>> Oans,int T){
+    using namespace std;
+
+    vector<int> v,va,x,l; //v-oryginalne rozwiazanie, va-sasiad, x-element sasiada
+    vector<vector<int>> act,ans;
+    for(int i=0;i<Oans.size();i++){
+        for(int j=0;j<3;j++){
+            v.push_back(Oans[i][j]); //spis wszystkich liczb oryginalnego rozwiazania
+        }
+    }
+
+
+    int g;
+    for(int k=0;k<v.size();k++){
+        g=0;
+        act.clear();
+        va=v;
+        if(k!=v.size()-1){
+            iter_swap(va.begin() + k, va.begin() + k+1);} //zamienianie miejscami
+        else{
+            iter_swap(va.begin() + k, va.begin()); //jesli ostatnia liczba to zamienia sie z poczatkiem
+        }
+        for (int j = 0; j < Oans.size(); j++) { //tworzenie sasiada
+            x = {va[g], va[g + 1], va[g + 2]};
+            act.push_back(x);
+            g += 3;
+        }
+        if(k==0){ //jesli to pierwszy sasiad to staje sie najlepszym
+            ans=act;
+            l=va;
+        }else{
+            if(Quality(act,T)<= Quality(ans,T)){
+                ans=act;
+                l=va;
+            }
+        }
+    }
+
+    return ans;
+
+}
 std::pair<std::vector<std::vector<int>>, int> hill_climbing_det(int m, int T, int it) {
     using namespace std;
     vector<vector<int>> ans, act;
-    int Q = -1, i, result;
+    int Q,k=0,x=0,Qct;
     vector<int> v;
-    int x = 0;
-    while (next_permutation(S.begin(), S.end())) {
-        act.clear();
-        i = 0;
-        x += 1;
-        for (int j = 0; j < m / 3; j++) {
-            v = {S[i], S[i + 1], S[i + 2]};
-            act.push_back(v);
-            i += 3;
-        }
-        result = Quality(act, T);
+    for (int j = 0; j < m / 3; j++) {
+        v = {S[k], S[k + 1], S[k + 2]};
+        ans.push_back(v);
+        k += 3;
+    }
 
-        if (result == 0) {
-            Q = result;
-            ans = act;
-            break;
-        }
-        if ((Q >= 0 && result < Q) || (Q < 0)) {
-            Q = result;
-            ans = act;
+    Q= Quality(ans,T);
+    if (Q==0){
+        X=1;
+        return make_pair(ans, Q);
+    }
+    act=ans;
+
+
+    for (int i=0; i<it;i++) {
+        x += 1;
+        act=find_best_neighbours(act,T);
+        Qct= Quality(act,T);
+        if(Qct<=Q){
+            Q=Qct;
+            ans=act;
+            if(Q==0){
+                break;
+            }
         }
     }
     X = x;
