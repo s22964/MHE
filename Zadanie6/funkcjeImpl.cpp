@@ -123,38 +123,44 @@ std::pair<std::vector<std::vector<int>>, int> random_hill_climbing(int m, int T,
     return make_pair(ans, Q);
 }
 
+
 std::pair<std::vector<std::vector<int>>, int> hill_climbing_det(int m, int T, int it) {
     using namespace std;
     std::ofstream outfile;
 
     outfile.open("hillclimbdet.txt", std::ios_base::app); // append instead of overwri
     vector<vector<int>> ans, act;
-    int Q = -1, i, result;
+    int Q,k=0,x=0,Qct;
     vector<int> v;
-    int x = 0;
-    while (next_permutation(S.begin(), S.end())) {
-        act.clear();
-        i = 0;
+    for (int j = 0; j < m / 3; j++) {
+        v = {S[k], S[k + 1], S[k + 2]};
+        ans.push_back(v);
+        k += 3;
+    }
+
+    Q= Quality(ans,T);
+    if (Q==0){
+        X=1;
+        return make_pair(ans, Q);
+    }
+    act=ans;
+
+
+    for (int i=0; i<it;i++) {
         x += 1;
-        for (int j = 0; j < m / 3; j++) {
-            v = {S[i], S[i + 1], S[i + 2]};
-            act.push_back(v);
-            i += 3;
-        }
-        result = Quality(act, T);
+        act=find_best_neighbours(act,T);
+        Qct= Quality(act,T);
         if(krzywa){
             auto stop = std::chrono::system_clock::now();
             std::chrono::duration<double> czas = stop-czas_start;
-           outfile<<x<<" "<<czas.count()<<" "<<lc<<" "<<result<<endl;
+            outfile<<x<<" "<<czas.count()<<" "<<lc<<" "<<Q<<endl;
         }
-        if (result == 0) {
-            Q = result;
-            ans = act;
-            break;
-        }
-        if ((Q >= 0 && result < Q) || (Q < 0)) {
-            Q = result;
-            ans = act;
+        if(Qct<=Q){
+            Q=Qct;
+            ans=act;
+            if(Q==0){
+                break;
+            }
         }
     }
     X = x;

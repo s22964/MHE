@@ -1,0 +1,9 @@
+# ninja log v5
+5	1247	6925194117281061	CMakeFiles/Zadanie4.dir/main.cpp.obj	b3dbf94e1e5f0ed1
+1	1413	6925194118935199	CMakeFiles/Zadanie4.dir/funkcjeImpl.cpp.obj	3454a9d39ae7dc83
+1413	2124	6925194125986214	Zadanie4.exe	dc35749e04d8cfdb
+4	1210	6925194878063545	CMakeFiles/Zadanie4.dir/main.cpp.obj	b3dbf94e1e5f0ed1
+1211	1857	6925194884481906	Zadanie4.exe	dc35749e04d8cfdb
+9	1593	6925203258917311	CMakeFiles/Zadanie4.dir/main.cpp.obj	b3dbf94e1e5f0ed1
+4	1773	6925203260712506	CMakeFiles/Zadanie4.dir/funkcjeImpl.cpp.obj	3454a9d39ae7dc83
+1774	2451	6925203267434270	Zadanie4.exe	dc35749e04d8cfdb

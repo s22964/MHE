@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     using namespace std;
     lc=0;
 
-    cout<<"1.Nazwa Pliku, 2.Czas Obliczen, 3.Krzywa, 4.Rozwiązanie, 5.Jakosc, 6.Liczba Iteracji, 7.Liczba Ocen"<<endl;
+    cout<<"1.Nazwa Pliku, 2.Czas Obliczen, 3.Krzywa, 4.Rozwiazanie, 5.Jakosc, 6.Liczba Iteracji, 7.Liczba Ocen"<<endl;
     try {
         string Filename(argv[1]);
         readFile(Filename);
