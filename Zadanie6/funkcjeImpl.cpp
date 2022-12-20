@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <numeric>
-#include <iomanip>
-#include <fstream>
 #include <random>
 #include <functional>
 #include <map>
@@ -13,8 +11,9 @@
 
 
 
-typedef std::pair<std::vector<std::vector<int>>, int> (*FnPtr)(int, int, int);
-
+typedef std::tuple<std::vector<std::vector<int>>, int,int,int> (*FnPtr)(std::vector<int>,int, int, int,Time,bool);
+bool krzywa;
+int lc=0;
 
 int Quality(std::vector<std::vector<int>> v, int T) {
     int Q = 0, s;
@@ -22,19 +21,23 @@ int Quality(std::vector<std::vector<int>> v, int T) {
         s = reduce(v[i].begin(), v[i].end());
         Q += abs(T - s);
     }
-    if (l_celu || krzywa) lc += 1;
+    lc += 1;
     return Q;
 }
 
-std::pair<std::vector<std::vector<int>>, int> random_sampling(int m, int T, int it) {
-    using namespace std;
+std::tuple<std::vector<std::vector<int>>, int,int,int> random_sampling(std::vector<int> S,int m, int T, int it,Time czas_start,bool K) {
+    using namespace std;//settings part
     std::ofstream outfile;
-
+    krzywa=K;
     outfile.open("rndsam.txt", std::ios_base::app); // append instead of overwri
     int x = 0;
     int Q = -1, result;
     std::vector<int> in, v;
     vector<vector<int>> ans;
+
+
+
+
     for (int k = 0; k < it; k++) {
         ans.clear();
         x += 1;
@@ -69,19 +72,23 @@ std::pair<std::vector<std::vector<int>>, int> random_sampling(int m, int T, int 
         }
     }
 
-    X = x;
-    return make_pair(ans, Q);
+
+    return {ans, Q,x,lc};
 }
 
-std::pair<std::vector<std::vector<int>>, int> random_hill_climbing(int m, int T, int it) {
-    using namespace std;
+std::tuple<std::vector<std::vector<int>>, int,int,int>random_hill_climbing(std::vector<int> S,int m, int T, int it,Time czas_start,bool K) {
+    using namespace std;  //settings part
     std::ofstream outfile;
-
+    krzywa=K;
     outfile.open("hillclmb.txt", std::ios_base::app); // append instead of overwri
     int x = 0;
     int Q = -1, result;
     std::vector<int> in, v;
     vector<vector<int>> ans, act;
+
+
+
+
     for (int k = 0; k < it; k++) {
         act.clear();
         x += 1;
@@ -119,20 +126,24 @@ std::pair<std::vector<std::vector<int>>, int> random_hill_climbing(int m, int T,
 
     }
 
-    X = x;
-    return make_pair(ans, Q);
+
+    return {ans, Q,x,lc};
 }
 
 
-std::pair<std::vector<std::vector<int>>, int> hill_climbing_det(int m, int T, int it) {
-    using namespace std;
+std::tuple<std::vector<std::vector<int>>, int,int,int>hill_climbing_det(std::vector<int> S,int m, int T, int it,Time czas_start,bool K) {
+    using namespace std; //settings part
     std::ofstream outfile;
-
+    krzywa=K;
     outfile.open("hillclimbdet.txt", std::ios_base::app); // append instead of overwri
     vector<vector<int>> ans, act;
     int Q,k=0,x=0,Qct;
     vector<int> v;
-    for (int j = 0; j < m / 3; j++) {
+
+
+
+
+    for (int j = 0; j < m / 3; j++) { //first answer
         v = {S[k], S[k + 1], S[k + 2]};
         ans.push_back(v);
         k += 3;
@@ -140,8 +151,8 @@ std::pair<std::vector<std::vector<int>>, int> hill_climbing_det(int m, int T, in
 
     Q= Quality(ans,T);
     if (Q==0){
-        X=1;
-        return make_pair(ans, Q);
+        x=1;
+        return {ans, Q,x,lc};
     }
     act=ans;
 
@@ -163,13 +174,12 @@ std::pair<std::vector<std::vector<int>>, int> hill_climbing_det(int m, int T, in
             }
         }
     }
-    X = x;
-    return make_pair(ans, Q);
+
+    return {ans, Q,x,lc};
 }
 
 std::vector<std::vector<int>> find_best_neighbours(std::vector<std::vector<int>> Oans, int T) {
     using namespace std;
-
     vector<int> v, va, x, l; //v-oryginalne rozwiazanie, va-sasiad, x-element sasiada
     vector<vector<int>> act, ans;
     for (int i = 0; i < Oans.size(); i++) {
@@ -177,7 +187,6 @@ std::vector<std::vector<int>> find_best_neighbours(std::vector<std::vector<int>>
             v.push_back(Oans[i][j]); //spis wszystkich liczb oryginalnego rozwiazania
         }
     }
-
 
     int g;
     for (int k = 0; k < v.size(); k++) {
@@ -210,20 +219,20 @@ std::vector<std::vector<int>> find_best_neighbours(std::vector<std::vector<int>>
 
 }
 
-std::pair<std::vector<std::vector<int>>, int> tabu_search(int m, int T, int it) {
-    using namespace std;
+std::tuple<std::vector<std::vector<int>>, int,int,int> tabu_search(std::vector<int> S,int m, int T, int it,Time czas_start,bool K) {
+    using namespace std; //settings part
     std::ofstream outfile;
-
+    krzywa=K;
     outfile.open("test.txt", std::ios_base::app); // append instead of overwrite
-
-
     const int tabu_size = 1000;
     list<vector<vector<int>>> tabu_list;
     int i, a, x = 0;
     vector<vector<int>> ans, act;
     vector<int> v;
     i = 0;
-    cout<<S.size()<<endl;
+
+
+
 
     for (int j = 0; j < m / 3; j++) { //pierwsze rozwiazanie
         v = {S[i], S[i + 1], S[i + 2]};
@@ -231,7 +240,6 @@ std::pair<std::vector<std::vector<int>>, int> tabu_search(int m, int T, int it) 
         i += 3;
     }
     tabu_list.push_back(act);
-
     ans = tabu_list.back();
 
     for (int k = 0; k < it; k++) {
@@ -258,27 +266,24 @@ std::pair<std::vector<std::vector<int>>, int> tabu_search(int m, int T, int it) 
         }
 
     }
-    X = x;
-
-
-// To get the value of duration use the count()
-// member function on the duration object
-
-    return make_pair(ans, Quality(ans, T));
-
+    return {ans, Quality(ans, T),x,lc};
 }
 
-std::pair<std::vector<std::vector<int>>, int> przeglad(int m, int T, int it) {
-    using namespace std;
+
+
+std::tuple<std::vector<std::vector<int>>, int,int,int> przeglad(std::vector<int> S,int m, int T, int it,Time czas_start,bool K) {
+    using namespace std; //setting part
     std::ofstream outfile;
-
+    krzywa=K;
     outfile.open("przeglad.txt", std::ios_base::app); // append instead of overwrite
-
-
     vector<vector<int>> ans, act;
     int Q = -1, i, result;
     vector<int> v;
     int x = 0;
+
+
+
+
     sort(S.begin(), S.end());
     while (next_permutation(S.begin(), S.end())) {
         act.clear();
@@ -301,10 +306,8 @@ std::pair<std::vector<std::vector<int>>, int> przeglad(int m, int T, int it) {
             ans = act;
         }
     }
-    X = x;
-    return make_pair(ans, Q);
 
-
+    return {ans, Q,x,lc};
 }
 
 std::pair<std::string, std::vector<int>> readFile(std::string Filename) {

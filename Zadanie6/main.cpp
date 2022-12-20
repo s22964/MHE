@@ -1,25 +1,19 @@
 #include <iostream>
 #include <vector>
-#include <numeric>
-#include <iomanip>
-#include <fstream>
-#include <random>
-#include <functional>
 #include <map>
-#include <list>
 #include <chrono>
 #include "funkcje.h"
 
 
- std::vector<int> S;
-
- bool krzywa,l_celu;
- int X,lc;
 std::chrono::time_point <std::chrono::system_clock, std::chrono::duration<double>> czas_start;
 
 int main(int argc, char **argv) {
-    using namespace std;
-    lc=0;
+    using namespace std;//settings part
+    int lc=0;
+    bool l_celu, krzywa;
+    std::vector<int> S;
+    int X;
+
 
     cout<<"1.Nazwa Pliku, 2.Czas Obliczen, 3.Krzywa, 4.Rozwiazanie, 5.Jakosc, 6.Liczba Iteracji, 7.Liczba Ocen"<<endl;
     try {
@@ -28,7 +22,6 @@ int main(int argc, char **argv) {
         bool timer=((string)argv[2]=="true");
         krzywa=((string)argv[3]=="true");
         bool rozwiazanie=((string)argv[4]=="true");
-
         bool jakosc=((string)argv[5]=="true");
         bool l_iteracji=((string)argv[6]=="true");
         l_celu=((string)argv[7]=="true");
@@ -61,25 +54,27 @@ int main(int argc, char **argv) {
         if (m % 3 != 0) {
             cout << "Zbior musi byc podzielny przez 3!";
         } else {
-            pair<vector<vector<int>>, int> result;
+            tuple<vector<vector<int>>, int,int,int> result;
             int sum = 0;
             for (auto &n: S) {
                 sum += n;
             }
             int T = sum / (m / 3);
             cout << "Suma T=" << T << endl;
-            czas_start = std::chrono::system_clock::now();
+            auto czas_start = std::chrono::system_clock::now();
             try {
 
-                result = myMap[fname](m, T, it);
+                result = myMap[fname](S,m, T, it,czas_start,krzywa);
 
             } catch (...) {
                 cout << "nieprawidłowe dane";
                 exit(3);
             }
             auto czas_stop = std::chrono::system_clock::now();
-            ans = result.first;
-            Q = result.second;
+            ans = get<0>(result);
+            Q = get<1>(result);
+            X=get<2>(result);
+            lc=get<3>(result);
             if(rozwiazanie) {
                 cout << "Wynik:" << endl;
                 for (int i = 0; i < ans.size(); i++) {
