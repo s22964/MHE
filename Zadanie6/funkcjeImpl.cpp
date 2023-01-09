@@ -12,11 +12,12 @@
 
 
 typedef std::tuple<std::vector<std::vector<int>>, int,int,int> (*FnPtr)(std::vector<int>,int, int, int,Time,bool);
-bool krzywa;
-int lc=0;
+bool krzywa;    ///< wyswietlanie danych do wykresu krzywej zbieznosci
+int lc=0;    ///< liczba wywolania funkcji celu
 
 int Quality(std::vector<std::vector<int>> v, int T) {
-    int Q = 0, s;
+    int Q = 0; ///< Jakosc rozwiazania
+    int s; ///< Jakosc rozwiazania
     for (int i = 0; i < v.size(); i++) {
         s = reduce(v[i].begin(), v[i].end());
         Q += abs(T - s);
@@ -30,10 +31,12 @@ std::tuple<std::vector<std::vector<int>>, int,int,int> random_sampling(std::vect
     std::ofstream outfile;
     krzywa=K;
     outfile.open("rndsam.txt", std::ios_base::app); // append instead of overwri
-    int x = 0;
-    int Q = -1, result;
-    std::vector<int> in, v;
-    vector<vector<int>> ans;
+    int x = 0; ///< liczba iteracji
+    int Q = -1; ///< Jakosc rozwiazania
+    int result; ///< Jakosc aktualnie sprawdzanego rozwiazania
+    std::vector<int> in; ///< Zadanie
+    std::vector<int> v; ///< Zestaw 3 liczb
+    vector<vector<int>> ans; ///< Rozwiazanie
 
 
 
@@ -81,10 +84,13 @@ std::tuple<std::vector<std::vector<int>>, int,int,int>random_hill_climbing(std::
     std::ofstream outfile;
     krzywa=K;
     outfile.open("hillclmb.txt", std::ios_base::app); // append instead of overwri
-    int x = 0;
-    int Q = -1, result;
-    std::vector<int> in, v;
-    vector<vector<int>> ans, act;
+    int x = 0; ///< liczba iteracji
+    int Q = -1; ///< Jakosc rozwiazania
+    int result; ///< Jakosc aktualnie sprawdzanego rozwiazania
+    std::vector<int> in; ///< Zadanie
+    std::vector<int> v; ///< Zestaw 3 liczb
+    vector<vector<int>> ans; ///< Rozwiazanie
+    vector<vector<int>> act; ///< Aktualnie sprawdzane rozwiazanie
 
 
 
@@ -136,9 +142,13 @@ std::tuple<std::vector<std::vector<int>>, int,int,int>hill_climbing_det(std::vec
     std::ofstream outfile;
     krzywa=K;
     outfile.open("hillclimbdet.txt", std::ios_base::app); // append instead of overwri
-    vector<vector<int>> ans, act;
-    int Q,k=0,x=0,Qct;
-    vector<int> v;
+    vector<vector<int>> ans; ///< Rozwiazanie
+    vector<vector<int>> act; ///< Aktualnie sprawdzane rozwiazanie
+    int Q; ///< Jakosc rozwiazania
+    int k=0; ///< index do tworzenia zestawow
+    int x=0; ///< liczba iteracji
+    int Qct; ///< Jakosc rozwiazania sprawdzanego sasiada
+    vector<int> v; ///< Zestaw 3 liczb
 
 
 
@@ -180,8 +190,12 @@ std::tuple<std::vector<std::vector<int>>, int,int,int>hill_climbing_det(std::vec
 
 std::vector<std::vector<int>> find_best_neighbours(std::vector<std::vector<int>> Oans, int T) {
     using namespace std;
-    vector<int> v, va, x, l; //v-oryginalne rozwiazanie, va-sasiad, x-element sasiada
-    vector<vector<int>> act, ans;
+    vector<int> v; ///< oryginalne rozwiazanie
+    vector<int> va; ///< sasiad
+    vector<int> x; ///< element sasiada
+    vector<int> l; ///< najlepszy sasiad
+    vector<vector<int>> ans; ///< Rozwiazanie
+    vector<vector<int>> act; ///< Aktualnie sprawdzane rozwiazanie
     for (int i = 0; i < Oans.size(); i++) {
         for (int j = 0; j < 3; j++) {
             v.push_back(Oans[i][j]); //spis wszystkich liczb oryginalnego rozwiazania
@@ -226,8 +240,11 @@ std::tuple<std::vector<std::vector<int>>, int,int,int> tabu_search(std::vector<i
     outfile.open("test.txt", std::ios_base::app); // append instead of overwrite
     const int tabu_size = 1000;
     list<vector<vector<int>>> tabu_list;
-    int i, a, x = 0;
-    vector<vector<int>> ans, act;
+    int i;
+    int a;
+    int x = 0;
+    vector<vector<int>> ans; ///< Rozwiazanie
+    vector<vector<int>> act; ///< Aktualnie sprawdzane rozwiazanie
     vector<int> v;
     i = 0;
 
