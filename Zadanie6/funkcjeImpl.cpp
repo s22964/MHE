@@ -240,12 +240,12 @@ std::tuple<std::vector<std::vector<int>>, int,int,int> tabu_search(std::vector<i
     outfile.open("test.txt", std::ios_base::app); // append instead of overwrite
     const int tabu_size = 1000;
     list<vector<vector<int>>> tabu_list;
-    int i;
-    int a;
-    int x = 0;
+    int i; ///< index do tworzenia zestawow
+    int a; ///< Jakosc aktualnie sprawdzanego rozwiazanua
+    int x = 0; ///< liczba iteracji
     vector<vector<int>> ans; ///< Rozwiazanie
     vector<vector<int>> act; ///< Aktualnie sprawdzane rozwiazanie
-    vector<int> v;
+    vector<int> v; ///< Zestaw 3 liczb
     i = 0;
 
 
@@ -294,9 +294,11 @@ std::tuple<std::vector<std::vector<int>>, int,int,int> przeglad(std::vector<int>
     krzywa=K;
     outfile.open("przeglad.txt", std::ios_base::app); // append instead of overwrite
     vector<vector<int>> ans, act;
-    int Q = -1, i, result;
-    vector<int> v;
-    int x = 0;
+    int Q = -1; ///< Jakosc rozwiazania
+    int i; ///< index do tworzenia zestawow
+    int result; ///< Jakosc aktualnie sprawdzanego rozwiazania
+    vector<int> v; ///< Zestaw 3 liczb
+    int x = 0; ///< liczba iteracji
 
 
 
@@ -329,9 +331,9 @@ std::tuple<std::vector<std::vector<int>>, int,int,int> przeglad(std::vector<int>
 
 std::pair<std::string, std::vector<int>> readFile(std::string Filename) {
     using namespace std;
-    ifstream source;
+    ifstream source; ///< odczytywany plok
     source.open(Filename);
-    vector<std::string> lines;
+    vector<std::string> lines; ///< linie w odczytywanym pliku
     string line;
     while (std::getline(source, line)) {
         lines.push_back(line);

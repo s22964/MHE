@@ -9,28 +9,29 @@ std::chrono::time_point <std::chrono::system_clock, std::chrono::duration<double
 
 int main(int argc, char **argv) {
     using namespace std;//settings part
-    int lc=0;
-    bool l_celu, krzywa;
-    std::vector<int> S;
-    int X;
+    int lc=0; ///< liczba wywolan funkcji celu
+    bool l_celu; ///< wyswietlanie liczby wywolan funkcji celu
+    bool krzywa; ///< wyswietlanie danych do wykresu krzywej zbieznosci
+    std::vector<int> S; ///< Zadanie
+    int X; ///< ilosc wykonanych iteracji
 
 
     cout<<"1.Nazwa Pliku, 2.Czas Obliczen, 3.Krzywa, 4.Rozwiazanie, 5.Jakosc, 6.Liczba Iteracji, 7.Liczba Ocen"<<endl;
     try {
         string Filename(argv[1]);
         readFile(Filename);
-        bool timer=((string)argv[2]=="true");
+        bool timer=((string)argv[2]=="true"); ///< wyswietlanie time_stampow
         krzywa=((string)argv[3]=="true");
-        bool rozwiazanie=((string)argv[4]=="true");
-        bool jakosc=((string)argv[5]=="true");
-        bool l_iteracji=((string)argv[6]=="true");
+        bool rozwiazanie=((string)argv[4]=="true"); ///< wyswietlanie rozwiazania
+        bool jakosc=((string)argv[5]=="true"); ///< wyswietlanie jakosci rozwiazania
+        bool l_iteracji=((string)argv[6]=="true"); ///< wyswietlanie liczby iteracji
         l_celu=((string)argv[7]=="true");
 
 
 
-        int it = readFile(Filename).second[0];
-        string fname = readFile(Filename).first;
-        map<string, FnPtr> myMap;
+        int it = readFile(Filename).second[0]; ///< liczba zadanych iteracji
+        string fname = readFile(Filename).first; ///< nazwa funkcji do wykonania
+        map<string, FnPtr> myMap; ///< mapa wszystkich funkcji
         myMap["przeglad"] = przeglad;
         myMap["wspinaczkowyDet"] = hill_climbing_det;
         myMap["wspinaczkowyRan"] = random_hill_climbing;
@@ -39,7 +40,7 @@ int main(int argc, char **argv) {
         S = readFile(Filename).second;
         S.erase(S.begin());
 
-        int m = S.size();
+        int m = S.size(); ///< ilosc liczb w zadaniu
         cout << "Zbior S to: {";
         for (int i = 0; i < m; i++) {
             cout << S[i];
@@ -48,13 +49,13 @@ int main(int argc, char **argv) {
             }
         }
         cout << "}" << endl;
-        int Q;
-        vector<vector<int>> ans;
+        int Q; ///< Jakosc rozwiazania
+        vector<vector<int>> ans; ///< rozwiazanie
 
         if (m % 3 != 0) {
             cout << "Zbior musi byc podzielny przez 3!";
         } else {
-            tuple<vector<vector<int>>, int,int,int> result;
+            tuple<vector<vector<int>>, int,int,int> result; ///< wartosci zwracane przez funkcje wyszukiwania rozwiazania
             int sum = 0;
             for (auto &n: S) {
                 sum += n;
