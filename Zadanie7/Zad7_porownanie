@@ -1,0 +1,19 @@
+Zadanie: 20 23 25 30 49 45 27 30 30 40 22 19
+ilosc iteracji: 100000
+
+Pełny przeglad: iteracje=79833599, czas obliczen=170.224s, jakosc=0
+
+WspinaczkowyDet: iteracje=100000, czas obliczen=5.52603s, jakosc=52
+WspinaczkowyRan: iteracje=3107, czas obliczen=0.203266s, jakosc=0
+Wyzarzanie: iteracje=100000, czas obliczen=5.31816s, jakosc=19
+Losowy: iteracje=8895, czas obliczen=0.549722s, jakosc=0
+tabu: iteracje=100000, czas obliczen=6.12863s, jakosc=52
+
+1. Jaka metoda zbiega najszybciej (pierwsza osiąga zadany poziom jakości)?:
+Ze wszystkich metod to metody opierajace sie na losowosci, najszybciej potrafia zapewnic żądane rezultaty.
+Ze wszystkich losowych akurat random_hill_climbing  akurat wykazało sie najszybsza odpowiedzia, jednak wyzarzanie moze zapewnic najszybszą skutecznosc
+przez wzglad na mozliwosc ustalenia predkosci wyzarzania.
+
+2. Jaka metoda (poza pełnym przeglądem) daje najlepszy wynik dla dłuższych obliczeń?:
+Dla dluzszych obliczen poza losowymi metodami, stwierdziłbym ze wyzarzanie zapewnia najlepsze rezultaty
+ze wzgledu na umiejetnosc omijania lokalnych minimum.
